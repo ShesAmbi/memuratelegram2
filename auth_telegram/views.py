@@ -61,23 +61,8 @@ def telegram_auth_view(request):
     token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
     # pyjwt >=2 returns str; older versions may return bytes
 
-    # Return a tiny HTML page that stores token in localStorage and redirects frontend
-    frontend = "https://memurahardcoded.pages.dev"
-    safe_frontend = frontend.rstrip("/")
-    html = f"""
-    <!doctype html><html><head><meta charset="utf-8"></head>
-    <body>
-      <script>
-        // store token then redirect to frontend main page
-        try {{
-          localStorage.setItem('token', '{token}');
-        }} catch(e) {{ /* storage failed */ }}
-        window.location.replace(f'{safe_frontend}/callback?token={token}');
-      </script>
-    </body></html>
-    """
-    return HttpResponse(html, content_type="text/html")
-
+   # Return the token directly in a JSON response
+    return JsonResponse({"token": token})
 # small endpoint to check token & return user info
 def me_view(request):
     auth = request.META.get("HTTP_AUTHORIZATION", "")
@@ -102,6 +87,7 @@ def me_view(request):
         "username": user.username,
         "first_name": user.first_name,
     })
+
 
 
 
