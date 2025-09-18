@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # yourapp/views.py
 import hashlib, hmac
 from django.conf import settings
@@ -89,6 +89,7 @@ def me_view(request):
         "username": user.username,
         "first_name": user.first_name,
     })
+
 
 
 
