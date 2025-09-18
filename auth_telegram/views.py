@@ -62,7 +62,7 @@ def telegram_auth_view(request):
     # pyjwt >=2 returns str; older versions may return bytes
 
     # Return a tiny HTML page that stores token in localStorage and redirects frontend
-    frontend = getattr(settings, "https://memurahardcoded.pages.dev/", "https://your-site.pages.dev")
+    frontend = "https://memurahardcoded.pages.dev/"
     safe_frontend = frontend.rstrip("/")
     html = f"""
     <!doctype html><html><head><meta charset="utf-8"></head>
@@ -102,4 +102,5 @@ def me_view(request):
         "username": user.username,
         "first_name": user.first_name,
     })
+
 
