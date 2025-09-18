@@ -63,20 +63,7 @@ def telegram_auth_view(request):
 
   # Return a tiny HTML page that stores token in localStorage and redirects frontend
     frontend = "https://memurahardcoded.pages.dev"
-    safe_frontend = frontend.rstrip("/")
-    html = f"""
-    <!doctype html><html><head><meta charset="utf-8"></head>
-    <body>
-      <script>
-        // store token then redirect to frontend main page
-        try {{
-          localStorage.setItem('token', '{token}');
-        }} catch(e) {{ /* storage failed */ }}
-        window.location.replace(f'{safe_frontend}/callback?token={token}');
-      </script>
-    </body></html>
-    """
-    return HttpResponse(html, content_type="text/html")
+    return redirect(f"{frontend}/callback?token={token}")
     
 # small endpoint to check token & return user info
 def me_view(request):
@@ -102,6 +89,7 @@ def me_view(request):
         "username": user.username,
         "first_name": user.first_name,
     })
+
 
 
 
