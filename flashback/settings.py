@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret")   # set real SECRET_KEY on Render env
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
+DEBUG = "False"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 FRONTEND_URL = "https://memurahardcoded.pages.dev/"
 TELEGRAM_BOT_TOKEN = "7485654462:AAH4HgXo9w5XIX3brfdL4IhwssG2K-V-s8s"
@@ -138,4 +138,5 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 # or for quick dev you can set (less secure):
+
 # CORS_ALLOW_ALL_ORIGINS = True
