@@ -39,7 +39,8 @@ urlpatterns = [
     path('api/marks/toggle/', toggle_mark, name='toggle-ma'),
     # Include URLs from your new 'books' app
     path('api/books/', include('books.urls', namespace='books')),
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
     path("auth/telegram/", auth_telegram_views.telegram_auth_view, name="telegram-auth"),
     path("api/auth/me/", auth_telegram_views.me_view, name="auth-me"),
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]
+
