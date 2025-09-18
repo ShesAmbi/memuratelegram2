@@ -72,7 +72,7 @@ def telegram_auth_view(request):
         try {{
           localStorage.setItem('token', '{token}');
         }} catch(e) {{ /* storage failed */ }}
-        window.location.replace('{safe_frontend}/callback?token={token}');
+        window.location.replace(f'{safe_frontend}/callback?token={token}');
       </script>
     </body></html>
     """
@@ -102,6 +102,7 @@ def me_view(request):
         "username": user.username,
         "first_name": user.first_name,
     })
+
 
 
 
