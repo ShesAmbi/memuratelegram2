@@ -76,7 +76,7 @@ def telegram_auth_view(request):
       </script>
     </body></html>
     """
-    return HttpResponse(html)
+    return HttpResponse(html, content_type="text/html")
 
 # small endpoint to check token & return user info
 def me_view(request):
@@ -102,6 +102,7 @@ def me_view(request):
         "username": user.username,
         "first_name": user.first_name,
     })
+
 
 
 
