@@ -1,0 +1,170 @@
+/* reset a little */
+* { box-sizing: border-box; font-family: "Segoe UI", Roboto, Arial, sans-serif; }
+
+/* PAGE: full-screen black background */
+.cards-page {
+  min-height: 100vh;
+  background: #000000; /* rest of screen black */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* outer frame creates the orange/yellow margin effect around the card */
+.card-frame {
+  position: relative;
+  width: 60vw;           /* total frame width; card-window inside will be 50vw */
+  max-width: 1200px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gradient border effect */
+  padding: 12px; /* gap between gradient and white card */
+  background: linear-gradient(135deg, #4750ff 0%, #3300ff 50%, #4a71ff 100%);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* Explanation window sits on the left half (50vw), absolute inside frame */
+.explanation-window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-10px);
+  transition: opacity 380ms ease, transform 380ms ease;
+  z-index: 9;
+}
+
+/* visible state */
+.explanation-window.visible {
+  opacity: 10;
+  pointer-events: auto;
+  transform: translateX(-25vw);
+}
+
+/* card-window is the white box in the center (50vw wide, full height) */
+.card-window {
+  width: 50vw;
+  height: 100%;
+  background: #fff;
+  border-radius: 44px;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 400ms cubic-bezier(.2,.9,.2,1);
+  /* center it inside the frame by default */
+  transform: translateX(0);
+}
+
+/* when explanation opens, slide the card-window to the right half */
+.card-window.moved {
+  transform: translateX(25vw); /* moves it to occupy right half */
+}
+
+/* inner spacing and content */
+.card-inner {
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* QUESTION */
+.question-block { margin-bottom: 18px; }
+.question-text {
+  color: #111;
+  font-size: 1.6rem;
+  line-height: 1.35;
+  direction: rtl; /* if you want Persian rendering; remove if using English */
+}
+
+/* CHOICES */
+.choices-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 14px;
+}
+
+.choice-btn {
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fafafa;
+  text-align: right;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 300ms ease, background 150ms ease;
+}
+.choice-btn:hover { transform: translateY(-3px); }
+.choice-btn.selected { background: #fff2d7; border-color: #ffb347; }
+
+/* FEEDBACK */
+.feedback {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.feedback.ok { color: #155724; background: #d4edda; }
+.feedback.bad { color: #721c24; background: #f8d7da; }
+.small-expl { font-weight: 400; margin-top: 8px; font-size: 0.95rem; }
+
+/* CONTROLS at bottom */
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: auto;
+  padding: 18px 0 6px 0;
+}
+.btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.nav-btn { background: #111; color: #fff; }
+.mark-btn { background: transparent; color: #111; border: 2px solid #111; }
+.mark-btn.marked { background: #ffb347; color: #111; border-color: #ffb347; }
+.back-btn { background: #111; color: #fff; margin-top: 18px; }
+
+/* Explanation inner layout */
+.explain-inner {
+  width: calc(50vw - 40px);
+  max-width: 520px;
+  background: #fff;
+  padding: 26px;
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  direction: rtl; /* remove if not Persian */
+}
+.explain-title { margin: 0 0 10px 0; color: #111; }
+.explain-text { color: #333; line-height: 1.5; }
+
+/* Placeholder states */
+.placeholder { color: #999; font-size: 1rem; padding: 22px; text-align: center; }
+.placeholder.error { color: #ff6a6a; }
+
+/* responsiveness */
+@media (max-width: 900px) {
+  .card-frame { width: 92vw; padding: 8px; }
+  .card-window, .explanation-window { width: 100vw; }
+  .card-window.moved { transform: translateX(0); } /* avoid sliding on narrow screens */
+  .explanation-window.visible { opacity: 1; transform: translateY(0); }
+  .explain-inner { width: calc(100vw - 40px); max-width: 100%; }
+}
